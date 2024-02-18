@@ -113,31 +113,11 @@ to read.
 --             simp [sInsert, H3] at ih2
 --             exact ih2
 
-
 /-
 A list l with n is a permutation of a list
 the list with n inserted into it.
 -/
 lemma sInsert_perm (l : List Nat) (n : Nat) :
-List.Perm (n::l) (sInsert n l) := by
-  induction l
-  . case nil => simp [sInsert]
-  . case _ h t ih =>
-    simp [sInsert]
-    by_cases H : n ≤ h
-    . case pos => simp [H]
-    . case neg =>
-      simp [H];
-      have H2 := List.Perm.cons h ih
-      apply @List.Perm.trans _ (n :: h :: t) (h :: n :: t) (h ::sInsert n t)
-      exact List.Perm.swap h n t
-      exact H2
-
-/-
-A list l with n is a permutation of a list
-the list with n inserted into it.
--/
-lemma sInsert_perm2 (l : List Nat) (n : Nat) :
 List.Perm (n::l) (sInsert n l) := by
   induction l
   . case nil => simp [sInsert]
