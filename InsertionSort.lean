@@ -160,5 +160,4 @@ List.Perm l (sort l) := by
   . case cons h t ih =>
     simp [sort]
     have H := sInsert_perm (sort t) h
-    have H2 := List.Perm.cons h ih
-    exact List.Perm.trans H2 H
+    exact List.Perm.trans (List.Perm.cons h ih) H
