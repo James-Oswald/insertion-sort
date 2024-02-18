@@ -134,6 +134,23 @@ List.Perm (n::l) (sInsert n l) := by
       exact H2
 
 /-
+A list l with n is a permutation of a list
+the list with n inserted into it.
+-/
+lemma sInsert_perm2 (l : List Nat) (n : Nat) :
+List.Perm (n::l) (sInsert n l) := by
+  induction l
+  . case nil => simp [sInsert]
+  . case _ h t ih =>
+    simp [sInsert]
+    by_cases H : n ≤ h
+    . case pos => simp [H]
+    . case neg =>
+      simp [H];
+      apply (List.Perm.trans _ (List.Perm.cons h ih))
+      exact List.Perm.swap h n t
+
+/-
 Sort returns a permutation of the input list.
 -/
 theorem sort_perm (l : List Nat) :
